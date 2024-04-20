@@ -59,7 +59,7 @@ async function sendMessage(req, res) {
 
 async function getMessages(req, res) {
 	const { otherUserId } = req.params;
-	const userId = req.user._id;
+	const userId = req?.user?._id;
 	try {
 		const conversation = await Conversation.findOne({
 			participants: { $all: [userId, otherUserId] },
@@ -80,7 +80,7 @@ async function getMessages(req, res) {
 }
 
 async function getConversations(req, res) {
-	const userId = req.user._id;
+	const userId = req?.user?._id;
 	try {
 		const conversations = await Conversation.find({ participants: userId }).populate({
 			path: "participants",

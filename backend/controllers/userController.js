@@ -142,7 +142,7 @@ const updateUser = async (req, res) => {
 	const { name, email, username, password, bio } = req.body;
 	let { profilePic } = req.body;
 
-	const userId = req.user._id;
+	const userId = req?.user?._id;
 	try {
 		let user = await User.findById(userId);
 		if (!user) return res.status(400).json({ error: "User not found" });
@@ -198,7 +198,7 @@ const updateUser = async (req, res) => {
 const getSuggestedUsers = async (req, res) => {
 	try {
 		// exclude the current user from suggested users array and exclude users that current user is already following
-		const userId = req.user._id;
+		const userId = req?.user?._id;
 
 		const usersFollowedByYou = await User.findById(userId).select("following");
 
